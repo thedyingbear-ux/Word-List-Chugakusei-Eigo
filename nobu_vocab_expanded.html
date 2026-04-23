@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Per Chapter — 中学英語をもう一度ひとつひとつわかりやすく</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #faf8f4;
+    --white: #ffffff;
+    --ink: #1c1c2e;
+    --mid: #666;
+    --border: #e2ddd5;
+    --c1: #c0392b;
+    --c2: #2e7d6b;
+    --c3: #7b4fa2;
+    --gold: #b8860b;
+    --tag-ch1: #fde8e6;
+    --tag-ch2: #e6f4f1;
+    --tag-ch3: #f0e9f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  header {
+    background: var(--ink);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+  }
+  header .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 0.6rem;
+  }
+  header h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.9rem);
+    color: #faf8f4;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+  header .sub { font-size: 0.78rem; color: rgba(250,248,244,0.5); font-style: italic; }
+
+  .topbar {
+    background: #26263a;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .topbar span { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; margin-right: 0.3rem; }
+  .fbtn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.73rem;
+    font-weight: 500;
+    padding: 0.3rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background: transparent;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .fbtn:hover { border-color: #c9a84c; color: #c9a84c; }
+  .fbtn.on { background: #c9a84c; border-color: #c9a84c; color: #1c1c2e; font-weight: 600; }
+
+  main { max-width: 1060px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+
+  .intro-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 1rem 1.25rem;
+    font-size: 0.83rem;
+    color: var(--mid);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .part-label {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+  .part-label.p1 { background: var(--tag-ch1); color: var(--c1); }
+  .part-label.p2 { background: var(--tag-ch2); color: var(--c2); }
+  .part-label.p3 { background: var(--tag-ch3); color: var(--c3); }
+
+  .chapter {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .ch-head {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s;
+  }
+  .ch-head:hover { background: #f7f5f0; }
+
+  .ch-num-block {
+    width: 52px;
+    min-width: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    padding: 0.9rem 0;
+  }
+  .ch-head.lv1 .ch-num-block { background: var(--c1); }
+  .ch-head.lv2 .ch-num-block { background: var(--c2); }
+  .ch-head.lv3 .ch-num-block { background: var(--c3); }
+
+  .ch-meta { padding: 0.85rem 1rem; flex: 1; }
+  .ch-title { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+  .ch-grammar { font-size: 0.71rem; color: var(--mid); margin-top: 0.15rem; font-style: italic; }
+
+  .ch-count {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    font-size: 0.7rem;
+    color: #aaa;
+    white-space: nowrap;
+  }
+
+  .ch-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 0.8rem;
+    color: #bbb;
+    transition: transform 0.2s;
+  }
+  .ch-head.open .ch-arrow { transform: rotate(180deg); }
+
+  .ch-body {
+    display: none;
+    padding: 1.25rem 1.25rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .ch-body.open { display: block; }
+
+  .sec-title {
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.6rem;
+    margin-top: 1rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-title:first-child { margin-top: 0; }
+
+  .vgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .vi {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.4rem 0.65rem;
+    border-radius: 4px;
+    background: var(--bg);
+    font-size: 0.84rem;
+    transition: background 0.12s;
+    border-left: 3px solid transparent;
+  }
+  .vi:hover { background: #eef8f5; border-left-color: var(--c2); }
+
+  .vword { font-weight: 600; min-width: 120px; color: var(--ink); }
+  .vpos { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #e74c3c; min-width: 24px; }
+  .vmean { color: #555; font-size: 0.81rem; font-style: italic; }
+
+  .tip {
+    background: #f0fbf7;
+    border-left: 3px solid var(--c2);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.8rem;
+    color: #2a604f;
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .note {
+    background: #fffbea;
+    border-left: 3px solid var(--gold);
+    padding: 0.55rem 0.9rem;
+    font-size: 0.78rem;
+    color: #7a5c00;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+  }
+
+  @media print {
+    .topbar { display: none; }
+    .ch-body { display: block !important; }
+    .chapter { break-inside: avoid; }
+    header { background: #333 !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Adult Eikaiwa · Full Vocabulary Reference · Expanded Edition</div>
+  <h1>中学英語をもう一度ひとつひとつわかりやすく<br>
+  <span style="font-size:0.65em;color:#c9a84c;">Complete Chapter Vocabulary — All 21 Chapters</span></h1>
+  <div class="sub">NOBU English (山田暢彦) · Gakken 改訂版 · 1-on-1 Adult Eikaiwa Reference</div>
+</header>
+
+<div class="topbar">
+  <span>Filter:</span>
+  <button class="fbtn on" onclick="showAll(this)">All Chapters</button>
+  <button class="fbtn" onclick="filterLv('lv1',this)">Ch 1–7 (Base)</button>
+  <button class="fbtn" onclick="filterLv('lv2',this)">Ch 8–14 (Mid)</button>
+  <button class="fbtn" onclick="filterLv('lv3',this)">Ch 15–21 (Upper)</button>
+  <button class="fbtn" onclick="expandAll()">Expand All</button>
+  <button class="fbtn" onclick="collapseAll()">Collapse All</button>
+</div>
+
+<main>
+<div class="intro-box">
+  📌 Comprehensive vocabulary for all <strong>21 chapters</strong> of <em>中学英語をもう一度ひとつひとつわかりやすく 改訂版</em>. Words are grouped by category within each chapter and include all vocabulary a Japanese middle school student is expected to know. Click any chapter to expand.
+</div>
+
+<!-- ============================= PART 1 ============================= -->
+<div class="part-label p1" data-part="lv1">📘 Chapters 1–7 · Foundations</div>
+
+<!-- CH 01 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">01</div>
+    <div class="ch-meta">
+      <div class="ch-title">be動詞 — am / are / is</div>
+      <div class="ch-grammar">I am ~. / You are ~. / He is ~. / She is ~. · Introductions, nationalities, descriptions</div>
+    </div>
+    <div class="ch-count">60+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Jobs & Occupations</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">student</span><span class="vpos">n</span><span class="vmean">学生</span></div>
+      <div class="vi"><span class="vword">teacher</span><span class="vpos">n</span><span class="vmean">先生・教師</span></div>
+      <div class="vi"><span class="vword">doctor</span><span class="vpos">n</span><span class="vmean">医者</span></div>
+      <div class="vi"><span class="vword">nurse</span><span class="vpos">n</span><span class="vmean">看護師</span></div>
+      <div class="vi"><span class="vword">engineer</span><span class="vpos">n</span><span class="vmean">エンジニア・技術者</span></div>
+      <div class="vi"><span class="vword">office worker</span><span class="vpos">n</span><span class="vmean">会社員</span></div>
+      <div class="vi"><span class="vword">police officer</span><span class="vpos">n</span><span class="vmean">警察官</span></div>
+      <div class="vi"><span class="vword">firefighter</span><span class="vpos">n</span><span class="vmean">消防士</span></div>
+      <div class="vi"><span class="vword">chef / cook</span><span class="vpos">n</span><span class="vmean">料理人・シェフ</span></div>
+      <div class="vi"><span class="vword">farmer</span><span class="vpos">n</span><span class="vmean">農家・農夫</span></div>
+      <div class="vi"><span class="vword">driver</span><span class="vpos">n</span><span class="vmean">運転手</span></div>
+      <div class="vi"><span class="vword">pilot</span><span class="vpos">n</span><span class="vmean">パイロット</span></div>
+      <div class="vi"><span class="vword">dentist</span><span class="vpos">n</span><span class="vmean">歯医者</span></div>
+      <div class="vi"><span class="vword">lawyer</span><span class="vpos">n</span><span class="vmean">弁護士</span></div>
+      <div class="vi"><span class="vword">actor / actress</span><span class="vpos">n</span><span class="vmean">俳優・女優</span></div>
+      <div class="vi"><span class="vword">musician</span><span class="vpos">n</span><span class="vmean">音楽家</span></div>
+      <div class="vi"><span class="vword">artist</span><span class="vpos">n</span><span class="vmean">芸術家</span></div>
+      <div class="vi"><span class="vword">scientist</span><span class="vpos">n</span><span class="vmean">科学者</span></div>
+      <div class="vi"><span class="vword">writer / author</span><span class="vpos">n</span><span class="vmean">作家</span></div>
+      <div class="vi"><span class="vword">journalist</span><span class="vpos">n</span><span class="vmean">ジャーナリスト</span></div>
+      <div class="vi"><span class="vword">designer</span><span class="vpos">n</span><span class="vmean">デザイナー</span></div>
+      <div class="vi"><span class="vword">programmer</span><span class="vpos">n</span><span class="vmean">プログラマー</span></div>
+      <div class="vi"><span class="vword">coach</span><span class="vpos">n</span><span class="vmean">コーチ</span></div>
+      <div class="vi"><span class="vword">athlete</span><span class="vpos">n</span><span class="vmean">スポーツ選手</span></div>
+    </div>
+
+    <div class="sec-title">Nationalities & Countries</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Japanese</span><span class="vpos">adj/n</span><span class="vmean">日本人・日本語</span></div>
+      <div class="vi"><span class="vword">American</span><span class="vpos">adj/n</span><span class="vmean">アメリカ人</span></div>
+      <div class="vi"><span class="vword">British</span><span class="vpos">adj/n</span><span class="vmean">イギリス人</span></div>
+      <div class="vi"><span class="vword">Australian</span><span class="vpos">adj/n</span><span class="vmean">オーストラリア人</span></div>
+      <div class="vi"><span class="vword">Chinese</span><span class="vpos">adj/n</span><span class="vmean">中国人</span></div>
+      <div class="vi"><span class="vword">Korean</span><span class="vpos">adj/n</span><span class="vmean">韓国人</span></div>
+      <div class="vi"><span class="vword">French</span><span class="vpos">adj/n</span><span class="vmean">フランス人</span></div>
+      <div class="vi"><span class="vword">Canadian</span><span class="vpos">adj/n</span><span class="vmean">カナダ人</span></div>
+      <div class="vi"><span class="vword">Filipino</span><span class="vpos">adj/n</span><span class="vmean">フィリピン人</span></div>
+      <div class="vi"><span class="vword">Indian</span><span class="vpos">adj/n</span><span class="vmean">インド人</span></div>
+      <div class="vi"><span class="vword">Brazilian</span><span class="vpos">adj/n</span><span class="vmean">ブラジル人</span></div>
+      <div class="vi"><span class="vword">German</span><span class="vpos">adj/n</span><span class="vmean">ドイツ人</span></div>
+    </div>
+
+    <div class="sec-title">States & Conditions (adjectives with be)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">happy</span><span class="vpos">adj</span><span class="vmean">幸せな・嬉しい</span></div>
+      <div class="vi"><span class="vword">sad</span><span class="vpos">adj</span><span class="vmean">悲しい</span></div>
+      <div class="vi"><span class="vword">tired</span><span class="vpos">adj</span><span class="vmean">疲れた</span></div>
+      <div class="vi"><span class="vword">hungry</span><span class="vpos">adj</span><span class="vmean">お腹が空いた</span></div>
+      <div class="vi"><span class="vword">thirsty</span><span class="vpos">adj</span><span class="vmean">喉が渇いた</span></div>
+      <div class="vi"><span class="vword">busy</span><span class="vpos">adj</span><span class="vmean">忙しい</span></div>
+      <div class="vi"><span class="vword">free</span><span class="vpos">adj</span><span class="vmean">暇な・自由な</span></div>
+      <div class="vi"><span class="vword">sick / ill</span><span class="vpos">adj</span><span class="vmean">病気の</span></div>
+      <div class="vi"><span class="vword">fine / well</span><span class="vpos">adj</span><span class="vmean">元気な</span></div>
+      <div class="vi"><span class="vword">late</span><span class="vpos">adj</span><span class="vmean">遅れた・遅い</span></div>
+      <div class="vi"><span class="vword">ready</span><span class="vpos">adj</span><span class="vmean">準備ができている</span></div>
+      <div class="vi"><span class="vword">married</span><span class="vpos">adj</span><span class="vmean">結婚している</span></div>
+    </div>
+
+    <div class="sec-title">Places (subject of be verb)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">school</span><span class="vpos">n</span><span class="vmean">学校</span></div>
+      <div class="vi"><span class="vword">hospital</span><span class="vpos">n</span><span class="vmean">病院</span></div>
+      <div class="vi"><span class="vword">office</span><span class="vpos">n</span><span class="vmean">オフィス・会社</span></div>
+      <div class="vi"><span class="vword">library</span><span class="vpos">n</span><span class="vmean">図書館</span></div>
+      <div class="vi"><span class="vword">station</span><span class="vpos">n</span><span class="vmean">駅</span></div>
+      <div class="vi"><span class="vword">park</span><span class="vpos">n</span><span class="vmean">公園</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Are you a student or do you work? What do you do? Where is your workplace?"</div>
+  </div>
+</div>
+
+<!-- CH 02 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">02</div>
+    <div class="ch-meta">
+      <div class="ch-title">一般動詞 — General Verbs (Present)</div>
+      <div class="ch-grammar">I like ~. / I play ~. / She works. / He lives in ~. · Everyday actions</div>
+    </div>
+    <div class="ch-count">60+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Daily Life Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">eat</span><span class="vpos">v</span><span class="vmean">食べる</span></div>
+      <div class="vi"><span class="vword">drink</span><span class="vpos">v</span><span class="vmean">飲む</span></div>
+      <div class="vi"><span class="vword">sleep</span><span class="vpos">v</span><span class="vmean">眠る</span></div>
+      <div class="vi"><span class="vword">wake up</span><span class="vpos">v</span><span class="vmean">起きる</span></div>
+      <div class="vi"><span class="vword">walk</span><span class="vpos">v</span><span class="vmean">歩く</span></div>
+      <div class="vi"><span class="vword">run</span><span class="vpos">v</span><span class="vmean">走る</span></div>
+      <div class="vi"><span class="vword">ride</span><span class="vpos">v</span><span class="vmean">乗る</span></div>
+      <div class="vi"><span class="vword">drive</span><span class="vpos">v</span><span class="vmean">運転する</span></div>
+      <div class="vi"><span class="vword">work</span><span class="vpos">v</span><span class="vmean">働く</span></div>
+      <div class="vi"><span class="vword">study</span><span class="vpos">v</span><span class="vmean">勉強する</span></div>
+      <div class="vi"><span class="vword">live</span><span class="vpos">v</span><span class="vmean">住む</span></div>
+      <div class="vi"><span class="vword">go</span><span class="vpos">v</span><span class="vmean">行く</span></div>
+      <div class="vi"><span class="vword">come</span><span class="vpos">v</span><span class="vmean">来る</span></div>
+      <div class="vi"><span class="vword">get up</span><span class="vpos">v</span><span class="vmean">起き上がる</span></div>
+      <div class="vi"><span class="vword">cook</span><span class="vpos">v</span><span class="vmean">料理する</span></div>
+      <div class="vi"><span class="vword">clean</span><span class="vpos">v</span><span class="vmean">掃除する</span></div>
+      <div class="vi"><span class="vword">wash</span><span class="vpos">v</span><span class="vmean">洗う</span></div>
+      <div class="vi"><span class="vword">buy</span><span class="vpos">v</span><span class="vmean">買う</span></div>
+      <div class="vi"><span class="vword">sell</span><span class="vpos">v</span><span class="vmean">売る</span></div>
+      <div class="vi"><span class="vword">use</span><span class="vpos">v</span><span class="vmean">使う</span></div>
+    </div>
+
+    <div class="sec-title">Leisure & Interest Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">like</span><span class="vpos">v</span><span class="vmean">好きだ</span></div>
+      <div class="vi"><span class="vword">love</span><span class="vpos">v</span><span class="vmean">大好きだ・愛する</span></div>
+      <div class="vi"><span class="vword">enjoy</span><span class="vpos">v</span><span class="vmean">楽しむ</span></div>
+      <div class="vi"><span class="vword">want</span><span class="vpos">v</span><span class="vmean">欲しい・望む</span></div>
+      <div class="vi"><span class="vword">have</span><span class="vpos">v</span><span class="vmean">持っている</span></div>
+      <div class="vi"><span class="vword">know</span><span class="vpos">v</span><span class="vmean">知っている</span></div>
+      <div class="vi"><span class="vword">think</span><span class="vpos">v</span><span class="vmean">思う・考える</span></div>
+      <div class="vi"><span class="vword">play</span><span class="vpos">v</span><span class="vmean">遊ぶ・演奏する</span></div>
+      <div class="vi"><span class="vword">watch</span><span class="vpos">v</span><span class="vmean">見る</span></div>
+      <div class="vi"><span class="vword">read</span><span class="vpos">v</span><span class="vmean">読む</span></div>
+      <div class="vi"><span class="vword">listen (to)</span><span class="vpos">v</span><span class="vmean">聴く</span></div>
+      <div class="vi"><span class="vword">sing</span><span class="vpos">v</span><span class="vmean">歌う</span></div>
+      <div class="vi"><span class="vword">dance</span><span class="vpos">v</span><span class="vmean">踊る</span></div>
+      <div class="vi"><span class="vword">draw / paint</span><span class="vpos">v</span><span class="vmean">描く・塗る</span></div>
+      <div class="vi"><span class="vword">swim</span><span class="vpos">v</span><span class="vmean">泳ぐ</span></div>
+      <div class="vi"><span class="vword">travel</span><span class="vpos">v</span><span class="vmean">旅行する</span></div>
+    </div>
+
+    <div class="sec-title">Communication Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">speak</span><span class="vpos">v</span><span class="vmean">話す（言語）</span></div>
+      <div class="vi"><span class="vword">talk</span><span class="vpos">v</span><span class="vmean">話す（会話する）</span></div>
+      <div class="vi"><span class="vword">say</span><span class="vpos">v</span><span class="vmean">言う</span></div>
+      <div class="vi"><span class="vword">tell</span><span class="vpos">v</span><span class="vmean">伝える・話す</span></div>
+      <div class="vi"><span class="vword">ask</span><span class="vpos">v</span><span class="vmean">尋ねる・頼む</span></div>
+      <div class="vi"><span class="vword">answer</span><span class="vpos">v</span><span class="vmean">答える</span></div>
+      <div class="vi"><span class="vword">call</span><span class="vpos">v</span><span class="vmean">電話する・呼ぶ</span></div>
+      <div class="vi"><span class="vword">write</span><span class="vpos">v</span><span class="vmean">書く</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "What do you do every day before work? What do you enjoy doing on weekends?"</div>
+  </div>
+</div>
+
+<!-- CH 03 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">03</div>
+    <div class="ch-meta">
+      <div class="ch-title">形容詞 — Adjectives</div>
+      <div class="ch-grammar">It is ~. / a ~ book · Describing nouns · Adjective before noun & after be verb</div>
+    </div>
+    <div class="ch-count">70+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Size & Quantity</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">big / large</span><span class="vpos">adj</span><span class="vmean">大きい</span></div>
+      <div class="vi"><span class="vword">small / little</span><span class="vpos">adj</span><span class="vmean">小さい</span></div>
+      <div class="vi"><span class="vword">long</span><span class="vpos">adj</span><span class="vmean">長い</span></div>
+      <div class="vi"><span class="vword">short</span><span class="vpos">adj</span><span class="vmean">短い・背が低い</span></div>
+      <div class="vi"><span class="vword">tall</span><span class="vpos">adj</span><span class="vmean">背が高い</span></div>
+      <div class="vi"><span class="vword">high</span><span class="vpos">adj</span><span class="vmean">高い（位置・程度）</span></div>
+      <div class="vi"><span class="vword">wide</span><span class="vpos">adj</span><span class="vmean">広い・幅が広い</span></div>
+      <div class="vi"><span class="vword">narrow</span><span class="vpos">adj</span><span class="vmean">狭い・幅が狭い</span></div>
+      <div class="vi"><span class="vword">heavy</span><span class="vpos">adj</span><span class="vmean">重い</span></div>
+      <div class="vi"><span class="vword">light</span><span class="vpos">adj</span><span class="vmean">軽い・明るい</span></div>
+    </div>
+
+    <div class="sec-title">Quality & Condition</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">new</span><span class="vpos">adj</span><span class="vmean">新しい</span></div>
+      <div class="vi"><span class="vword">old</span><span class="vpos">adj</span><span class="vmean">古い・年を取った</span></div>
+      <div class="vi"><span class="vword">good</span><span class="vpos">adj</span><span class="vmean">良い</span></div>
+      <div class="vi"><span class="vword">bad</span><span class="vpos">adj</span><span class="vmean">悪い</span></div>
+      <div class="vi"><span class="vword">great</span><span class="vpos">adj</span><span class="vmean">素晴らしい</span></div>
+      <div class="vi"><span class="vword">wonderful</span><span class="vpos">adj</span><span class="vmean">素晴らしい</span></div>
+      <div class="vi"><span class="vword">terrible</span><span class="vpos">adj</span><span class="vmean">ひどい</span></div>
+      <div class="vi"><span class="vword">clean</span><span class="vpos">adj</span><span class="vmean">きれいな・清潔な</span></div>
+      <div class="vi"><span class="vword">dirty</span><span class="vpos">adj</span><span class="vmean">汚い</span></div>
+      <div class="vi"><span class="vword">safe</span><span class="vpos">adj</span><span class="vmean">安全な</span></div>
+      <div class="vi"><span class="vword">dangerous</span><span class="vpos">adj</span><span class="vmean">危険な</span></div>
+      <div class="vi"><span class="vword">healthy</span><span class="vpos">adj</span><span class="vmean">健康な</span></div>
+    </div>
+
+    <div class="sec-title">Feelings & Personality</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">kind</span><span class="vpos">adj</span><span class="vmean">親切な</span></div>
+      <div class="vi"><span class="vword">friendly</span><span class="vpos">adj</span><span class="vmean">フレンドリーな</span></div>
+      <div class="vi"><span class="vword">shy</span><span class="vpos">adj</span><span class="vmean">恥ずかしがり屋な</span></div>
+      <div class="vi"><span class="vword">funny</span><span class="vpos">adj</span><span class="vmean">面白い・おかしい</span></div>
+      <div class="vi"><span class="vword">smart / clever</span><span class="vpos">adj</span><span class="vmean">頭が良い</span></div>
+      <div class="vi"><span class="vword">brave</span><span class="vpos">adj</span><span class="vmean">勇敢な</span></div>
+      <div class="vi"><span class="vword">honest</span><span class="vpos">adj</span><span class="vmean">正直な</span></div>
+      <div class="vi"><span class="vword">polite</span><span class="vpos">adj</span><span class="vmean">礼儀正しい</span></div>
+      <div class="vi"><span class="vword">hardworking</span><span class="vpos">adj</span><span class="vmean">働き者の</span></div>
+      <div class="vi"><span class="vword">creative</span><span class="vpos">adj</span><span class="vmean">創造的な</span></div>
+    </div>
+
+    <div class="sec-title">Food, Temperature & Taste</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">delicious / tasty</span><span class="vpos">adj</span><span class="vmean">美味しい</span></div>
+      <div class="vi"><span class="vword">sweet</span><span class="vpos">adj</span><span class="vmean">甘い</span></div>
+      <div class="vi"><span class="vword">sour</span><span class="vpos">adj</span><span class="vmean">酸っぱい</span></div>
+      <div class="vi"><span class="vword">spicy / hot</span><span class="vpos">adj</span><span class="vmean">辛い</span></div>
+      <div class="vi"><span class="vword">bitter</span><span class="vpos">adj</span><span class="vmean">苦い</span></div>
+      <div class="vi"><span class="vword">salty</span><span class="vpos">adj</span><span class="vmean">しょっぱい・塩辛い</span></div>
+      <div class="vi"><span class="vword">hot</span><span class="vpos">adj</span><span class="vmean">暑い・熱い</span></div>
+      <div class="vi"><span class="vword">cold</span><span class="vpos">adj</span><span class="vmean">寒い・冷たい</span></div>
+      <div class="vi"><span class="vword">warm</span><span class="vpos">adj</span><span class="vmean">暖かい</span></div>
+      <div class="vi"><span class="vword">cool</span><span class="vpos">adj</span><span class="vmean">涼しい・かっこいい</span></div>
+    </div>
+
+    <div class="sec-title">Value & Difficulty</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">expensive</span><span class="vpos">adj</span><span class="vmean">高価な</span></div>
+      <div class="vi"><span class="vword">cheap / inexpensive</span><span class="vpos">adj</span><span class="vmean">安い</span></div>
+      <div class="vi"><span class="vword">difficult / hard</span><span class="vpos">adj</span><span class="vmean">難しい</span></div>
+      <div class="vi"><span class="vword">easy / simple</span><span class="vpos">adj</span><span class="vmean">簡単な</span></div>
+      <div class="vi"><span class="vword">interesting</span><span class="vpos">adj</span><span class="vmean">面白い・興味深い</span></div>
+      <div class="vi"><span class="vword">boring</span><span class="vpos">adj</span><span class="vmean">退屈な</span></div>
+      <div class="vi"><span class="vword">popular</span><span class="vpos">adj</span><span class="vmean">人気がある</span></div>
+      <div class="vi"><span class="vword">famous</span><span class="vpos">adj</span><span class="vmean">有名な</span></div>
+      <div class="vi"><span class="vword">important</span><span class="vpos">adj</span><span class="vmean">重要な・大切な</span></div>
+      <div class="vi"><span class="vword">special</span><span class="vpos">adj</span><span class="vmean">特別な</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "How would you describe yourself? What kind of food do you like?"</div>
+  </div>
+</div>
+
+<!-- CH 04 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">04</div>
+    <div class="ch-meta">
+      <div class="ch-title">否定文 — Negative Sentences</div>
+      <div class="ch-grammar">I am not ~. / I don't ~. / She doesn't ~. · It isn't ~. / They aren't ~.</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Key Negative Words</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">not</span><span class="vpos">adv</span><span class="vmean">〜ではない</span></div>
+      <div class="vi"><span class="vword">don't</span><span class="vpos">aux</span><span class="vmean">〜しない（I/you/we/they）</span></div>
+      <div class="vi"><span class="vword">doesn't</span><span class="vpos">aux</span><span class="vmean">〜しない（he/she/it）</span></div>
+      <div class="vi"><span class="vword">isn't / aren't</span><span class="vpos">aux</span><span class="vmean">〜ではない（be動詞）</span></div>
+      <div class="vi"><span class="vword">never</span><span class="vpos">adv</span><span class="vmean">決して〜ない</span></div>
+      <div class="vi"><span class="vword">no</span><span class="vpos">det</span><span class="vmean">全く〜ない</span></div>
+      <div class="vi"><span class="vword">nothing</span><span class="vpos">pron</span><span class="vmean">何もない</span></div>
+      <div class="vi"><span class="vword">nobody / no one</span><span class="vpos">pron</span><span class="vmean">誰もいない</span></div>
+      <div class="vi"><span class="vword">nowhere</span><span class="vpos">adv</span><span class="vmean">どこにもない</span></div>
+      <div class="vi"><span class="vword">either</span><span class="vpos">adv</span><span class="vmean">〜もない（否定の付加）</span></div>
+    </div>
+
+    <div class="sec-title">Verbs of Dislike / Avoidance</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">hate</span><span class="vpos">v</span><span class="vmean">嫌いだ・憎む</span></div>
+      <div class="vi"><span class="vword">dislike</span><span class="vpos">v</span><span class="vmean">好きではない</span></div>
+      <div class="vi"><span class="vword">avoid</span><span class="vpos">v</span><span class="vmean">避ける</span></div>
+      <div class="vi"><span class="vword">refuse</span><span class="vpos">v</span><span class="vmean">断る</span></div>
+      <div class="vi"><span class="vword">forget</span><span class="vpos">v</span><span class="vmean">忘れる</span></div>
+      <div class="vi"><span class="vword">miss</span><span class="vpos">v</span><span class="vmean">欠席する・見逃す</span></div>
+    </div>
+
+    <div class="sec-title">Useful Phrases for Negation</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">not at all</span><span class="vpos">ph</span><span class="vmean">全然〜ない</span></div>
+      <div class="vi"><span class="vword">not really</span><span class="vpos">ph</span><span class="vmean">あまり〜でない</span></div>
+      <div class="vi"><span class="vword">not yet</span><span class="vpos">ph</span><span class="vmean">まだ〜していない</span></div>
+      <div class="vi"><span class="vword">not always</span><span class="vpos">ph</span><span class="vmean">いつもとは限らない</span></div>
+      <div class="vi"><span class="vword">not very</span><span class="vpos">ph</span><span class="vmean">あまり〜でない</span></div>
+      <div class="vi"><span class="vword">bad at</span><span class="vpos">ph</span><span class="vmean">〜が苦手な</span></div>
+      <div class="vi"><span class="vword">good at</span><span class="vpos">ph</span><span class="vmean">〜が得意な</span></div>
+      <div class="vi"><span class="vword">unfortunately</span><span class="vpos">adv</span><span class="vmean">残念ながら</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Is there any food you don't like? What are you not so good at?"</div>
+  </div>
+</div>
+
+<!-- CH 05 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">05</div>
+    <div class="ch-meta">
+      <div class="ch-title">疑問文 — Yes/No Questions</div>
+      <div class="ch-grammar">Are you ~? / Do you ~? / Does she ~? / Is it ~? · Short answers: Yes, I do. / No, she doesn't.</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Frequency Adverbs (common in Yes/No Qs)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">always</span><span class="vpos">adv</span><span class="vmean">いつも</span></div>
+      <div class="vi"><span class="vword">usually</span><span class="vpos">adv</span><span class="vmean">たいてい</span></div>
+      <div class="vi"><span class="vword">often</span><span class="vpos">adv</span><span class="vmean">よく・しばしば</span></div>
+      <div class="vi"><span class="vword">sometimes</span><span class="vpos">adv</span><span class="vmean">時々</span></div>
+      <div class="vi"><span class="vword">rarely / seldom</span><span class="vpos">adv</span><span class="vmean">めったに〜しない</span></div>
+      <div class="vi"><span class="vword">never</span><span class="vpos">adv</span><span class="vmean">決して〜しない</span></div>
+      <div class="vi"><span class="vword">every day</span><span class="vpos">ph</span><span class="vmean">毎日</span></div>
+      <div class="vi"><span class="vword">once a week</span><span class="vpos">ph</span><span class="vmean">週に一度</span></div>
+      <div class="vi"><span class="vword">twice a month</span><span class="vpos">ph</span><span class="vmean">月に二回</span></div>
+      <div class="vi"><span class="vword">really / actually</span><span class="vpos">adv</span><span class="vmean">本当に・実は</span></div>
+    </div>
+
+    <div class="sec-title">Personal Life Vocabulary</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">hobby</span><span class="vpos">n</span><span class="vmean">趣味</span></div>
+      <div class="vi"><span class="vword">pet</span><span class="vpos">n</span><span class="vmean">ペット</span></div>
+      <div class="vi"><span class="vword">family</span><span class="vpos">n</span><span class="vmean">家族</span></div>
+      <div class="vi"><span class="vword">child / children</span><span class="vpos">n</span><span class="vmean">子供・子供たち</span></div>
+      <div class="vi"><span class="vword">married / single</span><span class="vpos">adj</span><span class="vmean">結婚している／独身</span></div>
+      <div class="vi"><span class="vword">car</span><span class="vpos">n</span><span class="vmean">車</span></div>
+      <div class="vi"><span class="vword">house / apartment</span><span class="vpos">n</span><span class="vmean">家・マンション</span></div>
+      <div class="vi"><span class="vword">sport</span><span class="vpos">n</span><span class="vmean">スポーツ</span></div>
+      <div class="vi"><span class="vword">music</span><span class="vpos">n</span><span class="vmean">音楽</span></div>
+      <div class="vi"><span class="vword">travel</span><span class="vpos">n</span><span class="vmean">旅行</span></div>
+      <div class="vi"><span class="vword">cooking</span><span class="vpos">n</span><span class="vmean">料理</span></div>
+      <div class="vi"><span class="vword">reading</span><span class="vpos">n</span><span class="vmean">読書</span></div>
+    </div>
+
+    <div class="sec-title">Question Response Phrases</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Yes, I do.</span><span class="vpos">ph</span><span class="vmean">はい、します。</span></div>
+      <div class="vi"><span class="vword">No, I don't.</span><span class="vpos">ph</span><span class="vmean">いいえ、しません。</span></div>
+      <div class="vi"><span class="vword">Yes, she does.</span><span class="vpos">ph</span><span class="vmean">はい、します（彼女）</span></div>
+      <div class="vi"><span class="vword">Yes, it is.</span><span class="vpos">ph</span><span class="vmean">はい、そうです。</span></div>
+      <div class="vi"><span class="vword">Not really.</span><span class="vpos">ph</span><span class="vmean">あまりそうでもないです。</span></div>
+      <div class="vi"><span class="vword">Kind of.</span><span class="vpos">ph</span><span class="vmean">まあ、そうですね。</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Do you have a pet? Do you usually cook at home? Are you good at cooking?"</div>
+  </div>
+</div>
+
+<!-- CH 06 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">06</div>
+    <div class="ch-meta">
+      <div class="ch-title">疑問詞 — Question Words (Wh-)</div>
+      <div class="ch-grammar">What / Who / Where / When / Why / How · How many / How much / How long / How old</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Question Words & Phrases</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">what</span><span class="vpos">wh</span><span class="vmean">何</span></div>
+      <div class="vi"><span class="vword">who</span><span class="vpos">wh</span><span class="vmean">誰</span></div>
+      <div class="vi"><span class="vword">whose</span><span class="vpos">wh</span><span class="vmean">誰の</span></div>
+      <div class="vi"><span class="vword">where</span><span class="vpos">wh</span><span class="vmean">どこ</span></div>
+      <div class="vi"><span class="vword">when</span><span class="vpos">wh</span><span class="vmean">いつ</span></div>
+      <div class="vi"><span class="vword">why</span><span class="vpos">wh</span><span class="vmean">なぜ</span></div>
+      <div class="vi"><span class="vword">how</span><span class="vpos">wh</span><span class="vmean">どのように</span></div>
+      <div class="vi"><span class="vword">which</span><span class="vpos">wh</span><span class="vmean">どちら・どれ</span></div>
+      <div class="vi"><span class="vword">how many</span><span class="vpos">ph</span><span class="vmean">いくつ（数えられる）</span></div>
+      <div class="vi"><span class="vword">how much</span><span class="vpos">ph</span><span class="vmean">いくら・どのくらい</span></div>
+      <div class="vi"><span class="vword">how long</span><span class="vpos">ph</span><span class="vmean">どのくらい（期間・長さ）</span></div>
+      <div class="vi"><span class="vword">how old</span><span class="vpos">ph</span><span class="vmean">何歳・何年</span></div>
+      <div class="vi"><span class="vword">how often</span><span class="vpos">ph</span><span class="vmean">どのくらい頻繁に</span></div>
+      <div class="vi"><span class="vword">how far</span><span class="vpos">ph</span><span class="vmean">どのくらい遠い</span></div>
+      <div class="vi"><span class="vword">what time</span><span class="vpos">ph</span><span class="vmean">何時</span></div>
+      <div class="vi"><span class="vword">what kind of</span><span class="vpos">ph</span><span class="vmean">どんな種類の</span></div>
+      <div class="vi"><span class="vword">what day</span><span class="vpos">ph</span><span class="vmean">何曜日</span></div>
+      <div class="vi"><span class="vword">what color</span><span class="vpos">ph</span><span class="vmean">何色</span></div>
+    </div>
+
+    <div class="sec-title">Numbers, Days, Months (from textbook appendix)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Sunday–Saturday</span><span class="vpos">n</span><span class="vmean">日曜〜土曜</span></div>
+      <div class="vi"><span class="vword">January–December</span><span class="vpos">n</span><span class="vmean">1月〜12月</span></div>
+      <div class="vi"><span class="vword">first–thirtieth</span><span class="vpos">n</span><span class="vmean">1番目〜30番目</span></div>
+      <div class="vi"><span class="vword">morning / afternoon</span><span class="vpos">n</span><span class="vmean">午前／午後</span></div>
+      <div class="vi"><span class="vword">evening / night</span><span class="vpos">n</span><span class="vmean">夕方／夜</span></div>
+      <div class="vi"><span class="vword">year / month / week</span><span class="vpos">n</span><span class="vmean">年／月／週</span></div>
+    </div>
+
+    <div class="sec-title">Common Answers to Wh- Questions</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Because ~</span><span class="vpos">conj</span><span class="vmean">なぜなら〜</span></div>
+      <div class="vi"><span class="vword">By (train/bus)</span><span class="vpos">prep</span><span class="vmean">〜で（交通手段）</span></div>
+      <div class="vi"><span class="vword">About ~ minutes</span><span class="vpos">ph</span><span class="vmean">約〜分</span></div>
+      <div class="vi"><span class="vword">For ~ years</span><span class="vpos">ph</span><span class="vmean">〜年間</span></div>
+      <div class="vi"><span class="vword">At ~ o'clock</span><span class="vpos">ph</span><span class="vmean">〜時に</span></div>
+      <div class="vi"><span class="vword">In + place/time</span><span class="vpos">ph</span><span class="vmean">〜に（場所・時）</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Where do you live? How long have you lived there? How do you get to work?"</div>
+  </div>
+</div>
+
+<!-- CH 07 -->
+<div class="chapter lv1" data-lv="lv1">
+  <div class="ch-head lv1" onclick="toggle(this)">
+    <div class="ch-num-block">07</div>
+    <div class="ch-meta">
+      <div class="ch-title">複数形・命令文 — Plurals & Imperatives</div>
+      <div class="ch-grammar">books / cities / children · Please ~. / Don't ~. / Let's ~. · Giving instructions</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Irregular Plural Nouns</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">child → children</span><span class="vpos">n</span><span class="vmean">子供→子供たち</span></div>
+      <div class="vi"><span class="vword">person → people</span><span class="vpos">n</span><span class="vmean">人→人々</span></div>
+      <div class="vi"><span class="vword">man → men</span><span class="vpos">n</span><span class="vmean">男性→男性たち</span></div>
+      <div class="vi"><span class="vword">woman → women</span><span class="vpos">n</span><span class="vmean">女性→女性たち</span></div>
+      <div class="vi"><span class="vword">tooth → teeth</span><span class="vpos">n</span><span class="vmean">歯→歯</span></div>
+      <div class="vi"><span class="vword">foot → feet</span><span class="vpos">n</span><span class="vmean">足→足</span></div>
+      <div class="vi"><span class="vword">mouse → mice</span><span class="vpos">n</span><span class="vmean">ネズミ→ネズミたち</span></div>
+      <div class="vi"><span class="vword">leaf → leaves</span><span class="vpos">n</span><span class="vmean">葉→葉</span></div>
+      <div class="vi"><span class="vword">knife → knives</span><span class="vpos">n</span><span class="vmean">ナイフ→ナイフ</span></div>
+      <div class="vi"><span class="vword">sheep → sheep</span><span class="vpos">n</span><span class="vmean">羊→羊（変化なし）</span></div>
+      <div class="vi"><span class="vword">fish → fish</span><span class="vpos">n</span><span class="vmean">魚→魚（変化なし）</span></div>
+      <div class="vi"><span class="vword">deer → deer</span><span class="vpos">n</span><span class="vmean">シカ→シカ（変化なし）</span></div>
+    </div>
+
+    <div class="sec-title">Imperative Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">stop</span><span class="vpos">v</span><span class="vmean">止まる・やめる</span></div>
+      <div class="vi"><span class="vword">look</span><span class="vpos">v</span><span class="vmean">見る・注意する</span></div>
+      <div class="vi"><span class="vword">listen</span><span class="vpos">v</span><span class="vmean">聞く</span></div>
+      <div class="vi"><span class="vword">repeat</span><span class="vpos">v</span><span class="vmean">繰り返す</span></div>
+      <div class="vi"><span class="vword">try</span><span class="vpos">v</span><span class="vmean">試みる</span></div>
+      <div class="vi"><span class="vword">check</span><span class="vpos">v</span><span class="vmean">確認する</span></div>
+      <div class="vi"><span class="vword">open / close</span><span class="vpos">v</span><span class="vmean">開ける／閉める</span></div>
+      <div class="vi"><span class="vword">turn on / off</span><span class="vpos">v</span><span class="vmean">つける／消す</span></div>
+      <div class="vi"><span class="vword">hurry up</span><span class="vpos">v</span><span class="vmean">急ぐ</span></div>
+      <div class="vi"><span class="vword">sit down / stand up</span><span class="vpos">v</span><span class="vmean">座る／立つ</span></div>
+      <div class="vi"><span class="vword">come in</span><span class="vpos">v</span><span class="vmean">入ってください</span></div>
+      <div class="vi"><span class="vword">be quiet</span><span class="vpos">ph</span><span class="vmean">静かにしてください</span></div>
+    </div>
+
+    <div class="sec-title">Common Imperative Phrases</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Please ~</span><span class="vpos">ph</span><span class="vmean">〜してください</span></div>
+      <div class="vi"><span class="vword">Let's ~</span><span class="vpos">ph</span><span class="vmean">〜しましょう</span></div>
+      <div class="vi"><span class="vword">Don't ~</span><span class="vpos">ph</span><span class="vmean">〜してはいけない</span></div>
+      <div class="vi"><span class="vword">Be careful!</span><span class="vpos">ph</span><span class="vmean">気をつけて！</span></div>
+      <div class="vi"><span class="vword">Don't worry.</span><span class="vpos">ph</span><span class="vmean">心配しないで。</span></div>
+      <div class="vi"><span class="vword">Have fun!</span><span class="vpos">ph</span><span class="vmean">楽しんでね！</span></div>
+      <div class="vi"><span class="vword">Good luck!</span><span class="vpos">ph</span><span class="vmean">頑張って！</span></div>
+      <div class="vi"><span class="vword">Take care.</span><span class="vpos">ph</span><span class="vmean">お気をつけて。</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "How many people are in your family? Let's talk about your daily routine!"</div>
+  </div>
+</div>
+
+<!-- ============================= PART 2 ============================= -->
+<div class="part-label p2" data-part="lv2">📗 Chapters 8–14 · Intermediate</div>
+
+<!-- CH 08 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">08</div>
+    <div class="ch-meta">
+      <div class="ch-title">過去形 — Past Tense</div>
+      <div class="ch-grammar">verb + ed · Irregular past forms · was/were · Did ~?</div>
+    </div>
+    <div class="ch-count">70+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Regular Past Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">visited</span><span class="vpos">v</span><span class="vmean">訪れた</span></div>
+      <div class="vi"><span class="vword">watched</span><span class="vpos">v</span><span class="vmean">見た</span></div>
+      <div class="vi"><span class="vword">cooked</span><span class="vpos">v</span><span class="vmean">料理した</span></div>
+      <div class="vi"><span class="vword">walked</span><span class="vpos">v</span><span class="vmean">歩いた</span></div>
+      <div class="vi"><span class="vword">talked</span><span class="vpos">v</span><span class="vmean">話した</span></div>
+      <div class="vi"><span class="vword">played</span><span class="vpos">v</span><span class="vmean">遊んだ・演奏した</span></div>
+      <div class="vi"><span class="vword">worked</span><span class="vpos">v</span><span class="vmean">働いた</span></div>
+      <div class="vi"><span class="vword">studied</span><span class="vpos">v</span><span class="vmean">勉強した</span></div>
+      <div class="vi"><span class="vword">lived</span><span class="vpos">v</span><span class="vmean">住んでいた</span></div>
+      <div class="vi"><span class="vword">tried</span><span class="vpos">v</span><span class="vmean">試みた</span></div>
+      <div class="vi"><span class="vword">enjoyed</span><span class="vpos">v</span><span class="vmean">楽しんだ</span></div>
+      <div class="vi"><span class="vword">cleaned</span><span class="vpos">v</span><span class="vmean">掃除した</span></div>
+    </div>
+
+    <div class="sec-title">Irregular Past Verbs (from textbook verb list)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">went (go)</span><span class="vpos">v</span><span class="vmean">行った</span></div>
+      <div class="vi"><span class="vword">came (come)</span><span class="vpos">v</span><span class="vmean">来た</span></div>
+      <div class="vi"><span class="vword">ate (eat)</span><span class="vpos">v</span><span class="vmean">食べた</span></div>
+      <div class="vi"><span class="vword">drank (drink)</span><span class="vpos">v</span><span class="vmean">飲んだ</span></div>
+      <div class="vi"><span class="vword">saw (see)</span><span class="vpos">v</span><span class="vmean">見た</span></div>
+      <div class="vi"><span class="vword">had (have)</span><span class="vpos">v</span><span class="vmean">持っていた・食べた</span></div>
+      <div class="vi"><span class="vword">made (make)</span><span class="vpos">v</span><span class="vmean">作った</span></div>
+      <div class="vi"><span class="vword">took (take)</span><span class="vpos">v</span><span class="vmean">撮った・取った</span></div>
+      <div class="vi"><span class="vword">bought (buy)</span><span class="vpos">v</span><span class="vmean">買った</span></div>
+      <div class="vi"><span class="vword">met (meet)</span><span class="vpos">v</span><span class="vmean">会った</span></div>
+      <div class="vi"><span class="vword">said (say)</span><span class="vpos">v</span><span class="vmean">言った</span></div>
+      <div class="vi"><span class="vword">thought (think)</span><span class="vpos">v</span><span class="vmean">思った</span></div>
+      <div class="vi"><span class="vword">got (get)</span><span class="vpos">v</span><span class="vmean">得た・なった</span></div>
+      <div class="vi"><span class="vword">knew (know)</span><span class="vpos">v</span><span class="vmean">知っていた</span></div>
+      <div class="vi"><span class="vword">read (read)</span><span class="vpos">v</span><span class="vmean">読んだ（同形）</span></div>
+      <div class="vi"><span class="vword">ran (run)</span><span class="vpos">v</span><span class="vmean">走った</span></div>
+      <div class="vi"><span class="vword">wrote (write)</span><span class="vpos">v</span><span class="vmean">書いた</span></div>
+      <div class="vi"><span class="vword">spoke (speak)</span><span class="vpos">v</span><span class="vmean">話した</span></div>
+      <div class="vi"><span class="vword">sang (sing)</span><span class="vpos">v</span><span class="vmean">歌った</span></div>
+      <div class="vi"><span class="vword">taught (teach)</span><span class="vpos">v</span><span class="vmean">教えた</span></div>
+      <div class="vi"><span class="vword">drove (drive)</span><span class="vpos">v</span><span class="vmean">運転した</span></div>
+      <div class="vi"><span class="vword">fell (fall)</span><span class="vpos">v</span><span class="vmean">落ちた・転んだ</span></div>
+      <div class="vi"><span class="vword">felt (feel)</span><span class="vpos">v</span><span class="vmean">感じた</span></div>
+      <div class="vi"><span class="vword">found (find)</span><span class="vpos">v</span><span class="vmean">見つけた</span></div>
+      <div class="vi"><span class="vword">gave (give)</span><span class="vpos">v</span><span class="vmean">与えた</span></div>
+      <div class="vi"><span class="vword">heard (hear)</span><span class="vpos">v</span><span class="vmean">聞いた</span></div>
+      <div class="vi"><span class="vword">left (leave)</span><span class="vpos">v</span><span class="vmean">去った・残した</span></div>
+      <div class="vi"><span class="vword">lost (lose)</span><span class="vpos">v</span><span class="vmean">失った・負けた</span></div>
+      <div class="vi"><span class="vword">put (put)</span><span class="vpos">v</span><span class="vmean">置いた（同形）</span></div>
+      <div class="vi"><span class="vword">stood (stand)</span><span class="vpos">v</span><span class="vmean">立った</span></div>
+      <div class="vi"><span class="vword">broke (break)</span><span class="vpos">v</span><span class="vmean">壊した</span></div>
+      <div class="vi"><span class="vword">built (build)</span><span class="vpos">v</span><span class="vmean">建てた</span></div>
+      <div class="vi"><span class="vword">brought (bring)</span><span class="vpos">v</span><span class="vmean">持ってきた</span></div>
+      <div class="vi"><span class="vword">chose (choose)</span><span class="vpos">v</span><span class="vmean">選んだ</span></div>
+      <div class="vi"><span class="vword">cut (cut)</span><span class="vpos">v</span><span class="vmean">切った（同形）</span></div>
+      <div class="vi"><span class="vword">drew (draw)</span><span class="vpos">v</span><span class="vmean">描いた</span></div>
+      <div class="vi"><span class="vword">forgot (forget)</span><span class="vpos">v</span><span class="vmean">忘れた</span></div>
+      <div class="vi"><span class="vword">grew (grow)</span><span class="vpos">v</span><span class="vmean">育った・育てた</span></div>
+      <div class="vi"><span class="vword">hit (hit)</span><span class="vpos">v</span><span class="vmean">当たった（同形）</span></div>
+      <div class="vi"><span class="vword">held (hold)</span><span class="vpos">v</span><span class="vmean">持った・開催した</span></div>
+      <div class="vi"><span class="vword">kept (keep)</span><span class="vpos">v</span><span class="vmean">保った</span></div>
+      <div class="vi"><span class="vword">meant (mean)</span><span class="vpos">v</span><span class="vmean">意味した</span></div>
+      <div class="vi"><span class="vword">sent (send)</span><span class="vpos">v</span><span class="vmean">送った</span></div>
+      <div class="vi"><span class="vword">slept (sleep)</span><span class="vpos">v</span><span class="vmean">眠った</span></div>
+      <div class="vi"><span class="vword">swam (swim)</span><span class="vpos">v</span><span class="vmean">泳いだ</span></div>
+      <div class="vi"><span class="vword">wore (wear)</span><span class="vpos">v</span><span class="vmean">着ていた</span></div>
+      <div class="vi"><span class="vword">won (win)</span><span class="vpos">v</span><span class="vmean">勝った</span></div>
+    </div>
+
+    <div class="note">📝 <strong>Note:</strong> The past tense verb list above is sourced from the irregular verb table at the back of your textbook (Images 5 & 6).</div>
+    <div class="tip">💬 <strong>Conversation:</strong> "What did you do last weekend? Did you go anywhere interesting recently?"</div>
+  </div>
+</div>
+
+<!-- CH 09 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">09</div>
+    <div class="ch-meta">
+      <div class="ch-title">進行形 — Present & Past Progressive</div>
+      <div class="ch-grammar">am/is/are + ~ing · was/were + ~ing · What are you doing? · What were you doing?</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Common -ing Verbs (Progressive Actions)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">working</span><span class="vpos">v-ing</span><span class="vmean">働いている</span></div>
+      <div class="vi"><span class="vword">studying</span><span class="vpos">v-ing</span><span class="vmean">勉強している</span></div>
+      <div class="vi"><span class="vword">sleeping</span><span class="vpos">v-ing</span><span class="vmean">寝ている</span></div>
+      <div class="vi"><span class="vword">eating</span><span class="vpos">v-ing</span><span class="vmean">食べている</span></div>
+      <div class="vi"><span class="vword">drinking</span><span class="vpos">v-ing</span><span class="vmean">飲んでいる</span></div>
+      <div class="vi"><span class="vword">running</span><span class="vpos">v-ing</span><span class="vmean">走っている</span></div>
+      <div class="vi"><span class="vword">walking</span><span class="vpos">v-ing</span><span class="vmean">歩いている</span></div>
+      <div class="vi"><span class="vword">talking</span><span class="vpos">v-ing</span><span class="vmean">話している</span></div>
+      <div class="vi"><span class="vword">listening</span><span class="vpos">v-ing</span><span class="vmean">聴いている</span></div>
+      <div class="vi"><span class="vword">watching</span><span class="vpos">v-ing</span><span class="vmean">見ている</span></div>
+      <div class="vi"><span class="vword">reading</span><span class="vpos">v-ing</span><span class="vmean">読んでいる</span></div>
+      <div class="vi"><span class="vword">cooking</span><span class="vpos">v-ing</span><span class="vmean">料理している</span></div>
+      <div class="vi"><span class="vword">cleaning</span><span class="vpos">v-ing</span><span class="vmean">掃除している</span></div>
+      <div class="vi"><span class="vword">waiting</span><span class="vpos">v-ing</span><span class="vmean">待っている</span></div>
+      <div class="vi"><span class="vword">shopping</span><span class="vpos">v-ing</span><span class="vmean">買い物している</span></div>
+      <div class="vi"><span class="vword">playing</span><span class="vpos">v-ing</span><span class="vmean">遊んでいる・演奏している</span></div>
+      <div class="vi"><span class="vword">swimming</span><span class="vpos">v-ing</span><span class="vmean">泳いでいる</span></div>
+      <div class="vi"><span class="vword">writing</span><span class="vpos">v-ing</span><span class="vmean">書いている</span></div>
+    </div>
+
+    <div class="sec-title">Time Expressions for Progressive</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">right now</span><span class="vpos">ph</span><span class="vmean">今すぐ・今</span></div>
+      <div class="vi"><span class="vword">at the moment</span><span class="vpos">ph</span><span class="vmean">今のところ</span></div>
+      <div class="vi"><span class="vword">still</span><span class="vpos">adv</span><span class="vmean">まだ</span></div>
+      <div class="vi"><span class="vword">at that time</span><span class="vpos">ph</span><span class="vmean">その時</span></div>
+      <div class="vi"><span class="vword">while</span><span class="vpos">conj</span><span class="vmean">〜している間に</span></div>
+      <div class="vi"><span class="vword">during</span><span class="vpos">prep</span><span class="vmean">〜の間</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "What were you doing at 8pm last night? What is your family doing right now?"</div>
+  </div>
+</div>
+
+<!-- CH 10 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">10</div>
+    <div class="ch-meta">
+      <div class="ch-title">未来形 — Future (be going to / will)</div>
+      <div class="ch-grammar">be going to + verb · will + verb · Plans, intentions, predictions, promises</div>
+    </div>
+    <div class="ch-count">45+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Future Plans & Dreams</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">plan</span><span class="vpos">n/v</span><span class="vmean">計画（する）</span></div>
+      <div class="vi"><span class="vword">dream</span><span class="vpos">n/v</span><span class="vmean">夢（を見る）</span></div>
+      <div class="vi"><span class="vword">goal</span><span class="vpos">n</span><span class="vmean">目標</span></div>
+      <div class="vi"><span class="vword">travel</span><span class="vpos">v</span><span class="vmean">旅行する</span></div>
+      <div class="vi"><span class="vword">move</span><span class="vpos">v</span><span class="vmean">引っ越す</span></div>
+      <div class="vi"><span class="vword">retire</span><span class="vpos">v</span><span class="vmean">定年退職する</span></div>
+      <div class="vi"><span class="vword">graduate</span><span class="vpos">v</span><span class="vmean">卒業する</span></div>
+      <div class="vi"><span class="vword">get married</span><span class="vpos">ph</span><span class="vmean">結婚する</span></div>
+      <div class="vi"><span class="vword">have a baby</span><span class="vpos">ph</span><span class="vmean">赤ちゃんを産む</span></div>
+      <div class="vi"><span class="vword">start a business</span><span class="vpos">ph</span><span class="vmean">起業する</span></div>
+      <div class="vi"><span class="vword">learn</span><span class="vpos">v</span><span class="vmean">学ぶ</span></div>
+      <div class="vi"><span class="vword">improve</span><span class="vpos">v</span><span class="vmean">向上させる</span></div>
+    </div>
+
+    <div class="sec-title">Time Expressions for Future</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">tomorrow</span><span class="vpos">adv</span><span class="vmean">明日</span></div>
+      <div class="vi"><span class="vword">next week</span><span class="vpos">ph</span><span class="vmean">来週</span></div>
+      <div class="vi"><span class="vword">next month</span><span class="vpos">ph</span><span class="vmean">来月</span></div>
+      <div class="vi"><span class="vword">next year</span><span class="vpos">ph</span><span class="vmean">来年</span></div>
+      <div class="vi"><span class="vword">soon</span><span class="vpos">adv</span><span class="vmean">もうすぐ</span></div>
+      <div class="vi"><span class="vword">someday</span><span class="vpos">adv</span><span class="vmean">いつか</span></div>
+      <div class="vi"><span class="vword">in the future</span><span class="vpos">ph</span><span class="vmean">将来</span></div>
+      <div class="vi"><span class="vword">in 5 years</span><span class="vpos">ph</span><span class="vmean">5年後</span></div>
+    </div>
+
+    <div class="sec-title">Certainty Words</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">probably</span><span class="vpos">adv</span><span class="vmean">おそらく</span></div>
+      <div class="vi"><span class="vword">maybe / perhaps</span><span class="vpos">adv</span><span class="vmean">たぶん・もしかしたら</span></div>
+      <div class="vi"><span class="vword">definitely</span><span class="vpos">adv</span><span class="vmean">絶対に・確実に</span></div>
+      <div class="vi"><span class="vword">certainly</span><span class="vpos">adv</span><span class="vmean">確かに</span></div>
+      <div class="vi"><span class="vword">I hope ~</span><span class="vpos">ph</span><span class="vmean">〜だといいな</span></div>
+      <div class="vi"><span class="vword">I'm sure ~</span><span class="vpos">ph</span><span class="vmean">きっと〜だと思う</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "What are you going to do this weekend? What do you think you will be doing in 10 years?"</div>
+  </div>
+</div>
+
+<!-- CH 11 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">11</div>
+    <div class="ch-meta">
+      <div class="ch-title">助動詞 — Modal Verbs</div>
+      <div class="ch-grammar">can / can't · have to / don't have to · should / shouldn't · must · may · might · could · would</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Modal Verbs</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">can</span><span class="vpos">mod</span><span class="vmean">〜できる・〜してよい</span></div>
+      <div class="vi"><span class="vword">can't / cannot</span><span class="vpos">mod</span><span class="vmean">〜できない</span></div>
+      <div class="vi"><span class="vword">have to</span><span class="vpos">mod</span><span class="vmean">〜しなければならない</span></div>
+      <div class="vi"><span class="vword">don't have to</span><span class="vpos">mod</span><span class="vmean">〜しなくてよい</span></div>
+      <div class="vi"><span class="vword">must</span><span class="vpos">mod</span><span class="vmean">〜しなければならない（強い）</span></div>
+      <div class="vi"><span class="vword">must not / mustn't</span><span class="vpos">mod</span><span class="vmean">〜してはいけない</span></div>
+      <div class="vi"><span class="vword">should</span><span class="vpos">mod</span><span class="vmean">〜すべきだ・〜したほうがよい</span></div>
+      <div class="vi"><span class="vword">shouldn't</span><span class="vpos">mod</span><span class="vmean">〜すべきでない</span></div>
+      <div class="vi"><span class="vword">may</span><span class="vpos">mod</span><span class="vmean">〜してもよい・〜かもしれない</span></div>
+      <div class="vi"><span class="vword">might</span><span class="vpos">mod</span><span class="vmean">〜かもしれない（mayより不確実）</span></div>
+      <div class="vi"><span class="vword">could</span><span class="vpos">mod</span><span class="vmean">〜できた・〜してくれませんか</span></div>
+      <div class="vi"><span class="vword">would</span><span class="vpos">mod</span><span class="vmean">〜するだろう・〜したい（丁寧）</span></div>
+    </div>
+
+    <div class="sec-title">Ability Verbs (used with can)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">swim</span><span class="vpos">v</span><span class="vmean">泳ぐ</span></div>
+      <div class="vi"><span class="vword">drive</span><span class="vpos">v</span><span class="vmean">運転する</span></div>
+      <div class="vi"><span class="vword">cook</span><span class="vpos">v</span><span class="vmean">料理する</span></div>
+      <div class="vi"><span class="vword">speak</span><span class="vpos">v</span><span class="vmean">話す</span></div>
+      <div class="vi"><span class="vword">sing</span><span class="vpos">v</span><span class="vmean">歌う</span></div>
+      <div class="vi"><span class="vword">play (instrument)</span><span class="vpos">v</span><span class="vmean">楽器を演奏する</span></div>
+      <div class="vi"><span class="vword">draw / paint</span><span class="vpos">v</span><span class="vmean">絵を描く</span></div>
+      <div class="vi"><span class="vword">use</span><span class="vpos">v</span><span class="vmean">使う</span></div>
+    </div>
+
+    <div class="sec-title">Obligation / Rules Vocabulary</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">rule</span><span class="vpos">n</span><span class="vmean">ルール</span></div>
+      <div class="vi"><span class="vword">law</span><span class="vpos">n</span><span class="vmean">法律</span></div>
+      <div class="vi"><span class="vword">deadline</span><span class="vpos">n</span><span class="vmean">締め切り</span></div>
+      <div class="vi"><span class="vword">permission</span><span class="vpos">n</span><span class="vmean">許可</span></div>
+      <div class="vi"><span class="vword">advice</span><span class="vpos">n</span><span class="vmean">アドバイス</span></div>
+      <div class="vi"><span class="vword">polite request</span><span class="vpos">ph</span><span class="vmean">丁寧なお願い</span></div>
+      <div class="vi"><span class="vword">Could you ~?</span><span class="vpos">ph</span><span class="vmean">〜していただけますか？</span></div>
+      <div class="vi"><span class="vword">Would you like ~?</span><span class="vpos">ph</span><span class="vmean">〜はいかがですか？</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Can you cook? What should people do to stay healthy? What must you do at your job?"</div>
+  </div>
+</div>
+
+<!-- CH 12 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">12</div>
+    <div class="ch-meta">
+      <div class="ch-title">不定詞・動名詞 — Infinitives & Gerunds</div>
+      <div class="ch-grammar">want to / like to / need to · enjoy ~ing / finish ~ing · used as noun / adj / adverb</div>
+    </div>
+    <div class="ch-count">45+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Verbs + to (infinitive)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">want to</span><span class="vpos">ph</span><span class="vmean">〜したい</span></div>
+      <div class="vi"><span class="vword">hope to</span><span class="vpos">ph</span><span class="vmean">〜することを願う</span></div>
+      <div class="vi"><span class="vword">decide to</span><span class="vpos">ph</span><span class="vmean">〜することを決める</span></div>
+      <div class="vi"><span class="vword">plan to</span><span class="vpos">ph</span><span class="vmean">〜するつもりだ</span></div>
+      <div class="vi"><span class="vword">try to</span><span class="vpos">ph</span><span class="vmean">〜しようとする</span></div>
+      <div class="vi"><span class="vword">need to</span><span class="vpos">ph</span><span class="vmean">〜する必要がある</span></div>
+      <div class="vi"><span class="vword">like to</span><span class="vpos">ph</span><span class="vmean">〜することが好き</span></div>
+      <div class="vi"><span class="vword">begin / start to</span><span class="vpos">ph</span><span class="vmean">〜し始める</span></div>
+    </div>
+
+    <div class="sec-title">Verbs + -ing (gerund)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">enjoy ~ing</span><span class="vpos">ph</span><span class="vmean">〜するのを楽しむ</span></div>
+      <div class="vi"><span class="vword">finish ~ing</span><span class="vpos">ph</span><span class="vmean">〜し終える</span></div>
+      <div class="vi"><span class="vword">practice ~ing</span><span class="vpos">ph</span><span class="vmean">〜の練習をする</span></div>
+      <div class="vi"><span class="vword">keep ~ing</span><span class="vpos">ph</span><span class="vmean">〜し続ける</span></div>
+      <div class="vi"><span class="vword">stop ~ing</span><span class="vpos">ph</span><span class="vmean">〜するのをやめる</span></div>
+      <div class="vi"><span class="vword">give up ~ing</span><span class="vpos">ph</span><span class="vmean">〜するのをあきらめる</span></div>
+    </div>
+
+    <div class="sec-title">Purpose & Reason (infinitive as adverb)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">go to eat</span><span class="vpos">ph</span><span class="vmean">食べに行く</span></div>
+      <div class="vi"><span class="vword">come to see</span><span class="vpos">ph</span><span class="vmean">会いに来る</span></div>
+      <div class="vi"><span class="vword">study to pass</span><span class="vpos">ph</span><span class="vmean">合格するために勉強する</span></div>
+      <div class="vi"><span class="vword">save (money)</span><span class="vpos">v</span><span class="vmean">貯める</span></div>
+      <div class="vi"><span class="vword">purpose</span><span class="vpos">n</span><span class="vmean">目的</span></div>
+      <div class="vi"><span class="vword">reason</span><span class="vpos">n</span><span class="vmean">理由</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "What do you enjoy doing on weekends? Why did you decide to study English?"</div>
+  </div>
+</div>
+
+<!-- CH 13 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">13</div>
+    <div class="ch-meta">
+      <div class="ch-title">接続詞 — Conjunctions</div>
+      <div class="ch-grammar">and / but / or / so · because / when / if / that · Connecting clauses</div>
+    </div>
+    <div class="ch-count">45+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Coordinating Conjunctions</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">and</span><span class="vpos">conj</span><span class="vmean">〜と・そして</span></div>
+      <div class="vi"><span class="vword">but</span><span class="vpos">conj</span><span class="vmean">しかし・でも</span></div>
+      <div class="vi"><span class="vword">or</span><span class="vpos">conj</span><span class="vmean">または・それとも</span></div>
+      <div class="vi"><span class="vword">so</span><span class="vpos">conj</span><span class="vmean">だから・それで</span></div>
+    </div>
+
+    <div class="sec-title">Subordinating Conjunctions</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">because</span><span class="vpos">conj</span><span class="vmean">なぜなら〜だから</span></div>
+      <div class="vi"><span class="vword">when</span><span class="vpos">conj</span><span class="vmean">〜のとき</span></div>
+      <div class="vi"><span class="vword">if</span><span class="vpos">conj</span><span class="vmean">もし〜なら</span></div>
+      <div class="vi"><span class="vword">that</span><span class="vpos">conj</span><span class="vmean">〜ということ</span></div>
+      <div class="vi"><span class="vword">before</span><span class="vpos">conj</span><span class="vmean">〜の前に</span></div>
+      <div class="vi"><span class="vword">after</span><span class="vpos">conj</span><span class="vmean">〜の後に</span></div>
+      <div class="vi"><span class="vword">while</span><span class="vpos">conj</span><span class="vmean">〜している間に</span></div>
+      <div class="vi"><span class="vword">until</span><span class="vpos">conj</span><span class="vmean">〜するまで</span></div>
+      <div class="vi"><span class="vword">although / though</span><span class="vpos">conj</span><span class="vmean">〜にもかかわらず</span></div>
+      <div class="vi"><span class="vword">as soon as</span><span class="vpos">ph</span><span class="vmean">〜するとすぐに</span></div>
+    </div>
+
+    <div class="sec-title">Feelings & Opinions (with "that")</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">think (that)</span><span class="vpos">v</span><span class="vmean">〜と思う</span></div>
+      <div class="vi"><span class="vword">feel (that)</span><span class="vpos">v</span><span class="vmean">〜と感じる</span></div>
+      <div class="vi"><span class="vword">believe (that)</span><span class="vpos">v</span><span class="vmean">〜と信じる</span></div>
+      <div class="vi"><span class="vword">know (that)</span><span class="vpos">v</span><span class="vmean">〜ということを知っている</span></div>
+      <div class="vi"><span class="vword">hear (that)</span><span class="vpos">v</span><span class="vmean">〜と聞く</span></div>
+      <div class="vi"><span class="vword">glad (that)</span><span class="vpos">adj</span><span class="vmean">〜で嬉しい</span></div>
+      <div class="vi"><span class="vword">excited</span><span class="vpos">adj</span><span class="vmean">ワクワクしている</span></div>
+      <div class="vi"><span class="vword">nervous</span><span class="vpos">adj</span><span class="vmean">緊張している</span></div>
+      <div class="vi"><span class="vword">worried</span><span class="vpos">adj</span><span class="vmean">心配している</span></div>
+      <div class="vi"><span class="vword">surprised</span><span class="vpos">adj</span><span class="vmean">驚いた</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Why do you study English? How do you feel when you speak English?"</div>
+  </div>
+</div>
+
+<!-- CH 14 -->
+<div class="chapter lv2" data-lv="lv2">
+  <div class="ch-head lv2" onclick="toggle(this)">
+    <div class="ch-num-block">14</div>
+    <div class="ch-meta">
+      <div class="ch-title">いろいろな文型 — Sentence Patterns</div>
+      <div class="ch-grammar">SVC · SVOO (give A to B) · SVOC (call A B / make A C) · 4th & 5th sentence patterns</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">SVOO Verbs (give / send / show)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">give</span><span class="vpos">v</span><span class="vmean">あげる・与える</span></div>
+      <div class="vi"><span class="vword">send</span><span class="vpos">v</span><span class="vmean">送る</span></div>
+      <div class="vi"><span class="vword">show</span><span class="vpos">v</span><span class="vmean">見せる</span></div>
+      <div class="vi"><span class="vword">teach</span><span class="vpos">v</span><span class="vmean">教える</span></div>
+      <div class="vi"><span class="vword">tell</span><span class="vpos">v</span><span class="vmean">伝える</span></div>
+      <div class="vi"><span class="vword">buy</span><span class="vpos">v</span><span class="vmean">買ってあげる</span></div>
+      <div class="vi"><span class="vword">make</span><span class="vpos">v</span><span class="vmean">作ってあげる</span></div>
+      <div class="vi"><span class="vword">bring</span><span class="vpos">v</span><span class="vmean">持ってくる</span></div>
+    </div>
+
+    <div class="sec-title">SVOC Verbs (call / make / keep / find)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">call A B</span><span class="vpos">ph</span><span class="vmean">AをBと呼ぶ</span></div>
+      <div class="vi"><span class="vword">make A happy</span><span class="vpos">ph</span><span class="vmean">Aを幸せにする</span></div>
+      <div class="vi"><span class="vword">keep A clean</span><span class="vpos">ph</span><span class="vmean">Aをきれいに保つ</span></div>
+      <div class="vi"><span class="vword">find A difficult</span><span class="vpos">ph</span><span class="vmean">Aが難しいと思う</span></div>
+      <div class="vi"><span class="vword">leave A open</span><span class="vpos">ph</span><span class="vmean">Aを開けたままにする</span></div>
+      <div class="vi"><span class="vword">name A B</span><span class="vpos">ph</span><span class="vmean">AをBと名付ける</span></div>
+    </div>
+
+    <div class="sec-title">Gift & Communication Nouns</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">gift / present</span><span class="vpos">n</span><span class="vmean">贈り物</span></div>
+      <div class="vi"><span class="vword">message</span><span class="vpos">n</span><span class="vmean">メッセージ</span></div>
+      <div class="vi"><span class="vword">letter</span><span class="vpos">n</span><span class="vmean">手紙</span></div>
+      <div class="vi"><span class="vword">email</span><span class="vpos">n</span><span class="vmean">メール</span></div>
+      <div class="vi"><span class="vword">nickname</span><span class="vpos">n</span><span class="vmean">あだ名</span></div>
+      <div class="vi"><span class="vword">name</span><span class="vpos">n</span><span class="vmean">名前</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Who taught you English? What do people call you at work? What makes you happy?"</div>
+  </div>
+</div>
+
+<!-- ============================= PART 3 ============================= -->
+<div class="part-label p3" data-part="lv3">📙 Chapters 15–21 · Upper Level</div>
+
+<!-- CH 15 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">15</div>
+    <div class="ch-meta">
+      <div class="ch-title">比較 — Comparatives & Superlatives</div>
+      <div class="ch-grammar">-er / more ~ · the -est / the most ~ · as ~ as · than · Comparing people & things</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">One-Syllable Adjectives (add -er / -est)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">tall / taller / tallest</span><span class="vpos">adj</span><span class="vmean">背が高い</span></div>
+      <div class="vi"><span class="vword">fast / faster / fastest</span><span class="vpos">adj</span><span class="vmean">速い</span></div>
+      <div class="vi"><span class="vword">big / bigger / biggest</span><span class="vpos">adj</span><span class="vmean">大きい</span></div>
+      <div class="vi"><span class="vword">old / older / oldest</span><span class="vpos">adj</span><span class="vmean">年を取った・古い</span></div>
+      <div class="vi"><span class="vword">long / longer / longest</span><span class="vpos">adj</span><span class="vmean">長い</span></div>
+      <div class="vi"><span class="vword">short / shorter / shortest</span><span class="vpos">adj</span><span class="vmean">短い・低い</span></div>
+      <div class="vi"><span class="vword">hot / hotter / hottest</span><span class="vpos">adj</span><span class="vmean">暑い・熱い</span></div>
+      <div class="vi"><span class="vword">young / younger / youngest</span><span class="vpos">adj</span><span class="vmean">若い</span></div>
+    </div>
+
+    <div class="sec-title">Multi-Syllable Adjectives (use more / most)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">beautiful</span><span class="vpos">adj</span><span class="vmean">美しい → more/most beautiful</span></div>
+      <div class="vi"><span class="vword">interesting</span><span class="vpos">adj</span><span class="vmean">面白い → more/most</span></div>
+      <div class="vi"><span class="vword">popular</span><span class="vpos">adj</span><span class="vmean">人気がある → more/most</span></div>
+      <div class="vi"><span class="vword">difficult</span><span class="vpos">adj</span><span class="vmean">難しい → more/most</span></div>
+      <div class="vi"><span class="vword">important</span><span class="vpos">adj</span><span class="vmean">重要な → more/most</span></div>
+      <div class="vi"><span class="vword">expensive</span><span class="vpos">adj</span><span class="vmean">高価な → more/most</span></div>
+      <div class="vi"><span class="vword">comfortable</span><span class="vpos">adj</span><span class="vmean">快適な → more/most</span></div>
+      <div class="vi"><span class="vword">convenient</span><span class="vpos">adj</span><span class="vmean">便利な → more/most</span></div>
+      <div class="vi"><span class="vword">dangerous</span><span class="vpos">adj</span><span class="vmean">危険な → more/most</span></div>
+      <div class="vi"><span class="vword">delicious</span><span class="vpos">adj</span><span class="vmean">美味しい → more/most</span></div>
+    </div>
+
+    <div class="sec-title">Irregular Forms</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">good → better → best</span><span class="vpos">adj</span><span class="vmean">良い（不規則）</span></div>
+      <div class="vi"><span class="vword">bad → worse → worst</span><span class="vpos">adj</span><span class="vmean">悪い（不規則）</span></div>
+      <div class="vi"><span class="vword">many/much → more → most</span><span class="vpos">adj</span><span class="vmean">多い（不規則）</span></div>
+      <div class="vi"><span class="vword">little → less → least</span><span class="vpos">adj</span><span class="vmean">少ない（不規則）</span></div>
+    </div>
+
+    <div class="sec-title">Comparison Phrases</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">than</span><span class="vpos">prep</span><span class="vmean">〜より</span></div>
+      <div class="vi"><span class="vword">as ~ as</span><span class="vpos">ph</span><span class="vmean">〜と同じくらい</span></div>
+      <div class="vi"><span class="vword">not as ~ as</span><span class="vpos">ph</span><span class="vmean">〜ほど〜でない</span></div>
+      <div class="vi"><span class="vword">the + superlative</span><span class="vpos">ph</span><span class="vmean">最も〜な</span></div>
+      <div class="vi"><span class="vword">one of the ~est</span><span class="vpos">ph</span><span class="vmean">最も〜なものの一つ</span></div>
+      <div class="vi"><span class="vword">much / far + comp.</span><span class="vpos">ph</span><span class="vmean">はるかに〜だ</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Which season do you like more, summer or winter? What's the best food you've ever eaten?"</div>
+  </div>
+</div>
+
+<!-- CH 16 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">16</div>
+    <div class="ch-meta">
+      <div class="ch-title">受け身 — Passive Voice</div>
+      <div class="ch-grammar">is/are + past participle · was/were + past participle · by ~ · Active vs. Passive</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Common Passive Verbs (past participles)</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">made (make)</span><span class="vpos">pp</span><span class="vmean">作られた</span></div>
+      <div class="vi"><span class="vword">built (build)</span><span class="vpos">pp</span><span class="vmean">建てられた</span></div>
+      <div class="vi"><span class="vword">sold (sell)</span><span class="vpos">pp</span><span class="vmean">売られた</span></div>
+      <div class="vi"><span class="vword">used (use)</span><span class="vpos">pp</span><span class="vmean">使われている</span></div>
+      <div class="vi"><span class="vword">spoken (speak)</span><span class="vpos">pp</span><span class="vmean">話されている</span></div>
+      <div class="vi"><span class="vword">known (know)</span><span class="vpos">pp</span><span class="vmean">知られている</span></div>
+      <div class="vi"><span class="vword">written (write)</span><span class="vpos">pp</span><span class="vmean">書かれた</span></div>
+      <div class="vi"><span class="vword">called (call)</span><span class="vpos">pp</span><span class="vmean">呼ばれている</span></div>
+      <div class="vi"><span class="vword">held (hold)</span><span class="vpos">pp</span><span class="vmean">開催された</span></div>
+      <div class="vi"><span class="vword">eaten (eat)</span><span class="vpos">pp</span><span class="vmean">食べられた</span></div>
+      <div class="vi"><span class="vword">found (find)</span><span class="vpos">pp</span><span class="vmean">発見された</span></div>
+      <div class="vi"><span class="vword">invented (invent)</span><span class="vpos">pp</span><span class="vmean">発明された</span></div>
+      <div class="vi"><span class="vword">grown (grow)</span><span class="vpos">pp</span><span class="vmean">育てられた</span></div>
+      <div class="vi"><span class="vword">sent (send)</span><span class="vpos">pp</span><span class="vmean">送られた</span></div>
+      <div class="vi"><span class="vword">taught (teach)</span><span class="vpos">pp</span><span class="vmean">教えられた</span></div>
+      <div class="vi"><span class="vword">given (give)</span><span class="vpos">pp</span><span class="vmean">与えられた</span></div>
+    </div>
+
+    <div class="sec-title">Topic Vocabulary for Passive</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">tradition</span><span class="vpos">n</span><span class="vmean">伝統</span></div>
+      <div class="vi"><span class="vword">culture</span><span class="vpos">n</span><span class="vmean">文化</span></div>
+      <div class="vi"><span class="vword">product</span><span class="vpos">n</span><span class="vmean">製品</span></div>
+      <div class="vi"><span class="vword">material</span><span class="vpos">n</span><span class="vmean">材料・素材</span></div>
+      <div class="vi"><span class="vword">worldwide</span><span class="vpos">adv</span><span class="vmean">世界中で</span></div>
+      <div class="vi"><span class="vword">by</span><span class="vpos">prep</span><span class="vmean">〜によって（受け身）</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "What is Japan known for? What language is spoken in your hometown?"</div>
+  </div>
+</div>
+
+<!-- CH 17 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">17</div>
+    <div class="ch-meta">
+      <div class="ch-title">現在完了形 — Present Perfect</div>
+      <div class="ch-grammar">have/has + past participle · ever / never / already / just / yet · since / for · Experience, completion, continuation</div>
+    </div>
+    <div class="ch-count">50+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Key Adverbs & Prepositions</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">ever</span><span class="vpos">adv</span><span class="vmean">これまでに（疑問）</span></div>
+      <div class="vi"><span class="vword">never</span><span class="vpos">adv</span><span class="vmean">一度も〜ない</span></div>
+      <div class="vi"><span class="vword">already</span><span class="vpos">adv</span><span class="vmean">もう・すでに</span></div>
+      <div class="vi"><span class="vword">just</span><span class="vpos">adv</span><span class="vmean">ちょうど今〜した</span></div>
+      <div class="vi"><span class="vword">yet</span><span class="vpos">adv</span><span class="vmean">まだ（否定・疑問）</span></div>
+      <div class="vi"><span class="vword">since</span><span class="vpos">prep/conj</span><span class="vmean">〜以来ずっと</span></div>
+      <div class="vi"><span class="vword">for</span><span class="vpos">prep</span><span class="vmean">〜の間（期間）</span></div>
+      <div class="vi"><span class="vword">once</span><span class="vpos">adv</span><span class="vmean">1回</span></div>
+      <div class="vi"><span class="vword">twice</span><span class="vpos">adv</span><span class="vmean">2回</span></div>
+      <div class="vi"><span class="vword">three times</span><span class="vpos">ph</span><span class="vmean">3回</span></div>
+    </div>
+
+    <div class="sec-title">Verbs Commonly Used in Present Perfect</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">been to</span><span class="vpos">ph</span><span class="vmean">〜に行ったことがある</span></div>
+      <div class="vi"><span class="vword">eaten (eat)</span><span class="vpos">pp</span><span class="vmean">食べたことがある</span></div>
+      <div class="vi"><span class="vword">seen (see)</span><span class="vpos">pp</span><span class="vmean">見たことがある</span></div>
+      <div class="vi"><span class="vword">tried (try)</span><span class="vpos">pp</span><span class="vmean">試したことがある</span></div>
+      <div class="vi"><span class="vword">lived (live)</span><span class="vpos">pp</span><span class="vmean">住んでいる（継続）</span></div>
+      <div class="vi"><span class="vword">studied (study)</span><span class="vpos">pp</span><span class="vmean">勉強している（継続）</span></div>
+      <div class="vi"><span class="vword">worked (work)</span><span class="vpos">pp</span><span class="vmean">働いている（継続）</span></div>
+      <div class="vi"><span class="vword">known (know)</span><span class="vpos">pp</span><span class="vmean">知っている（継続）</span></div>
+      <div class="vi"><span class="vword">met (meet)</span><span class="vpos">pp</span><span class="vmean">会ったことがある</span></div>
+      <div class="vi"><span class="vword">finished (finish)</span><span class="vpos">pp</span><span class="vmean">終えたところだ（完了）</span></div>
+      <div class="vi"><span class="vword">lost (lose)</span><span class="vpos">pp</span><span class="vmean">なくしてしまった（結果）</span></div>
+      <div class="vi"><span class="vword">broken (break)</span><span class="vpos">pp</span><span class="vmean">壊れてしまった（結果）</span></div>
+    </div>
+
+    <div class="sec-title">Experience Vocabulary</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">experience</span><span class="vpos">n</span><span class="vmean">経験</span></div>
+      <div class="vi"><span class="vword">memorable</span><span class="vpos">adj</span><span class="vmean">忘れられない</span></div>
+      <div class="vi"><span class="vword">unforgettable</span><span class="vpos">adj</span><span class="vmean">忘れられない</span></div>
+      <div class="vi"><span class="vword">abroad / overseas</span><span class="vpos">adv</span><span class="vmean">海外に</span></div>
+      <div class="vi"><span class="vword">so far</span><span class="vpos">ph</span><span class="vmean">今まで・これまでのところ</span></div>
+      <div class="vi"><span class="vword">up to now</span><span class="vpos">ph</span><span class="vmean">今まで</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Have you ever been abroad? What's the most interesting thing you've ever done?"</div>
+  </div>
+</div>
+
+<!-- CH 18 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">18</div>
+    <div class="ch-meta">
+      <div class="ch-title">不定詞（発展）— Advanced Infinitives</div>
+      <div class="ch-grammar">too ~ to · ~ enough to · want A to do · ask A to do · It is ~ to · how to / what to</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Advanced Infinitive Patterns</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">too ~ to</span><span class="vpos">ph</span><span class="vmean">〜すぎて…できない</span></div>
+      <div class="vi"><span class="vword">~ enough to</span><span class="vpos">ph</span><span class="vmean">十分〜なので…できる</span></div>
+      <div class="vi"><span class="vword">It is ~ to</span><span class="vpos">ph</span><span class="vmean">〜することは…だ</span></div>
+      <div class="vi"><span class="vword">want A to do</span><span class="vpos">ph</span><span class="vmean">AにBしてほしい</span></div>
+      <div class="vi"><span class="vword">ask A to do</span><span class="vpos">ph</span><span class="vmean">AにBするよう頼む</span></div>
+      <div class="vi"><span class="vword">tell A to do</span><span class="vpos">ph</span><span class="vmean">AにBするよう言う</span></div>
+      <div class="vi"><span class="vword">help A do</span><span class="vpos">ph</span><span class="vmean">AがBするのを助ける</span></div>
+      <div class="vi"><span class="vword">how to ~</span><span class="vpos">ph</span><span class="vmean">〜する方法</span></div>
+      <div class="vi"><span class="vword">what to ~</span><span class="vpos">ph</span><span class="vmean">何を〜すべきか</span></div>
+      <div class="vi"><span class="vword">where to ~</span><span class="vpos">ph</span><span class="vmean">どこで〜すべきか</span></div>
+    </div>
+
+    <div class="sec-title">Adjectives Used in These Patterns</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">difficult</span><span class="vpos">adj</span><span class="vmean">難しい</span></div>
+      <div class="vi"><span class="vword">important</span><span class="vpos">adj</span><span class="vmean">重要な</span></div>
+      <div class="vi"><span class="vword">necessary</span><span class="vpos">adj</span><span class="vmean">必要な</span></div>
+      <div class="vi"><span class="vword">possible</span><span class="vpos">adj</span><span class="vmean">可能な</span></div>
+      <div class="vi"><span class="vword">impossible</span><span class="vpos">adj</span><span class="vmean">不可能な</span></div>
+      <div class="vi"><span class="vword">useful</span><span class="vpos">adj</span><span class="vmean">役立つ</span></div>
+      <div class="vi"><span class="vword">exciting</span><span class="vpos">adj</span><span class="vmean">ワクワクさせる</span></div>
+      <div class="vi"><span class="vword">surprising</span><span class="vpos">adj</span><span class="vmean">驚くべき</span></div>
+      <div class="vi"><span class="vword">glad / happy</span><span class="vpos">adj</span><span class="vmean">嬉しい</span></div>
+      <div class="vi"><span class="vword">sorry</span><span class="vpos">adj</span><span class="vmean">申し訳ない</span></div>
+      <div class="vi"><span class="vword">kind / nice</span><span class="vpos">adj</span><span class="vmean">親切な</span></div>
+      <div class="vi"><span class="vword">encourage</span><span class="vpos">v</span><span class="vmean">励ます</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Is it difficult to learn Japanese? How did you learn how to cook?"</div>
+  </div>
+</div>
+
+<!-- CH 19 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">19</div>
+    <div class="ch-meta">
+      <div class="ch-title">関係代名詞 — Relative Pronouns</div>
+      <div class="ch-grammar">who / which / that · Defining relative clauses · The person who ~. / The book that ~.</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Relative Pronouns</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">who</span><span class="vpos">rel</span><span class="vmean">〜する人を修飾</span></div>
+      <div class="vi"><span class="vword">which</span><span class="vpos">rel</span><span class="vmean">〜するもの・事を修飾</span></div>
+      <div class="vi"><span class="vword">that</span><span class="vpos">rel</span><span class="vmean">人・もの両方に使える</span></div>
+      <div class="vi"><span class="vword">whose</span><span class="vpos">rel</span><span class="vmean">〜の（所有格）</span></div>
+    </div>
+
+    <div class="sec-title">Nouns Used as Antecedents</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">person</span><span class="vpos">n</span><span class="vmean">人</span></div>
+      <div class="vi"><span class="vword">man / woman</span><span class="vpos">n</span><span class="vmean">男性／女性</span></div>
+      <div class="vi"><span class="vword">friend</span><span class="vpos">n</span><span class="vmean">友達</span></div>
+      <div class="vi"><span class="vword">teacher</span><span class="vpos">n</span><span class="vmean">先生</span></div>
+      <div class="vi"><span class="vword">book</span><span class="vpos">n</span><span class="vmean">本</span></div>
+      <div class="vi"><span class="vword">movie / film</span><span class="vpos">n</span><span class="vmean">映画</span></div>
+      <div class="vi"><span class="vword">song / music</span><span class="vpos">n</span><span class="vmean">曲・音楽</span></div>
+      <div class="vi"><span class="vword">place</span><span class="vpos">n</span><span class="vmean">場所</span></div>
+      <div class="vi"><span class="vword">city / town</span><span class="vpos">n</span><span class="vmean">都市・町</span></div>
+      <div class="vi"><span class="vword">food / dish</span><span class="vpos">n</span><span class="vmean">食べ物・料理</span></div>
+    </div>
+
+    <div class="sec-title">Verbs for Describing People & Things</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">describe</span><span class="vpos">v</span><span class="vmean">描写する・説明する</span></div>
+      <div class="vi"><span class="vword">respect</span><span class="vpos">v</span><span class="vmean">尊敬する</span></div>
+      <div class="vi"><span class="vword">admire</span><span class="vpos">v</span><span class="vmean">憧れる</span></div>
+      <div class="vi"><span class="vword">inspire</span><span class="vpos">v</span><span class="vmean">刺激を与える</span></div>
+      <div class="vi"><span class="vword">recommend</span><span class="vpos">v</span><span class="vmean">勧める</span></div>
+      <div class="vi"><span class="vword">remind</span><span class="vpos">v</span><span class="vmean">思い出させる</span></div>
+      <div class="vi"><span class="vword">unique</span><span class="vpos">adj</span><span class="vmean">独特な</span></div>
+      <div class="vi"><span class="vword">memorable</span><span class="vpos">adj</span><span class="vmean">印象的な</span></div>
+      <div class="vi"><span class="vword">talented</span><span class="vpos">adj</span><span class="vmean">才能がある</span></div>
+      <div class="vi"><span class="vword">local</span><span class="vpos">adj</span><span class="vmean">地元の</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Tell me about a person who influenced you. Describe a place that is special to you."</div>
+  </div>
+</div>
+
+<!-- CH 20 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">20</div>
+    <div class="ch-meta">
+      <div class="ch-title">間接疑問文 — Indirect Questions</div>
+      <div class="ch-grammar">I know what ~. / Do you know where ~? / I wonder if ~. · Embedded questions in sentences</div>
+    </div>
+    <div class="ch-count">35+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Indirect Question Starters</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">I know (that) ~</span><span class="vpos">ph</span><span class="vmean">〜を知っている</span></div>
+      <div class="vi"><span class="vword">I don't know ~</span><span class="vpos">ph</span><span class="vmean">〜を知らない</span></div>
+      <div class="vi"><span class="vword">I wonder if ~</span><span class="vpos">ph</span><span class="vmean">〜かどうか気になる</span></div>
+      <div class="vi"><span class="vword">Do you know ~?</span><span class="vpos">ph</span><span class="vmean">〜をご存知ですか？</span></div>
+      <div class="vi"><span class="vword">Can you tell me ~?</span><span class="vpos">ph</span><span class="vmean">〜を教えてもらえますか？</span></div>
+      <div class="vi"><span class="vword">I'm not sure ~</span><span class="vpos">ph</span><span class="vmean">〜かどうか確かでない</span></div>
+      <div class="vi"><span class="vword">I can't remember ~</span><span class="vpos">ph</span><span class="vmean">〜を覚えていない</span></div>
+      <div class="vi"><span class="vword">I'd like to know ~</span><span class="vpos">ph</span><span class="vmean">〜を知りたい</span></div>
+    </div>
+
+    <div class="sec-title">Polite Conversation Vocabulary</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">Excuse me</span><span class="vpos">ph</span><span class="vmean">すみません</span></div>
+      <div class="vi"><span class="vword">Could you tell me ~?</span><span class="vpos">ph</span><span class="vmean">〜を教えていただけますか？</span></div>
+      <div class="vi"><span class="vword">I was wondering ~</span><span class="vpos">ph</span><span class="vmean">〜かと思いまして</span></div>
+      <div class="vi"><span class="vword">by any chance</span><span class="vpos">ph</span><span class="vmean">もしかして</span></div>
+      <div class="vi"><span class="vword">apparently</span><span class="vpos">adv</span><span class="vmean">どうやら〜らしい</span></div>
+      <div class="vi"><span class="vword">according to</span><span class="vpos">ph</span><span class="vmean">〜によると</span></div>
+      <div class="vi"><span class="vword">I've heard that ~</span><span class="vpos">ph</span><span class="vmean">〜と聞いたことがある</span></div>
+      <div class="vi"><span class="vword">It seems that ~</span><span class="vpos">ph</span><span class="vmean">〜らしい・〜のようだ</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "Do you know when the next holiday is? Can you tell me what you like most about your job?"</div>
+  </div>
+</div>
+
+<!-- CH 21 -->
+<div class="chapter lv3" data-lv="lv3">
+  <div class="ch-head lv3" onclick="toggle(this)">
+    <div class="ch-num-block">21</div>
+    <div class="ch-meta">
+      <div class="ch-title">仮定法 — Hypothetical / Conditional</div>
+      <div class="ch-grammar">If + past, would ~ · I wish ~ · Unreal / imaginary situations · Counterfactuals</div>
+    </div>
+    <div class="ch-count">40+ words</div>
+    <div class="ch-arrow">▼</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="sec-title">Conditional & Wish Structures</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">If I were ~</span><span class="vpos">ph</span><span class="vmean">もし私が〜なら</span></div>
+      <div class="vi"><span class="vword">If I had ~</span><span class="vpos">ph</span><span class="vmean">もし〜があれば</span></div>
+      <div class="vi"><span class="vword">If I could ~</span><span class="vpos">ph</span><span class="vmean">もし〜できたなら</span></div>
+      <div class="vi"><span class="vword">I would ~</span><span class="vpos">ph</span><span class="vmean">〜するだろう</span></div>
+      <div class="vi"><span class="vword">I wish I were ~</span><span class="vpos">ph</span><span class="vmean">〜だったらいいのに</span></div>
+      <div class="vi"><span class="vword">I wish I could ~</span><span class="vpos">ph</span><span class="vmean">〜できたらいいのに</span></div>
+      <div class="vi"><span class="vword">I wish I had ~</span><span class="vpos">ph</span><span class="vmean">〜があればいいのに</span></div>
+    </div>
+
+    <div class="sec-title">Dream & Hypothetical Topic Vocabulary</div>
+    <div class="vgrid">
+      <div class="vi"><span class="vword">rich / wealthy</span><span class="vpos">adj</span><span class="vmean">お金持ちの</span></div>
+      <div class="vi"><span class="vword">free time</span><span class="vpos">n</span><span class="vmean">自由な時間</span></div>
+      <div class="vi"><span class="vword">power</span><span class="vpos">n</span><span class="vmean">力・権力</span></div>
+      <div class="vi"><span class="vword">opportunity</span><span class="vpos">n</span><span class="vmean">機会</span></div>
+      <div class="vi"><span class="vword">world peace</span><span class="vpos">n</span><span class="vmean">世界平和</span></div>
+      <div class="vi"><span class="vword">superpower</span><span class="vpos">n</span><span class="vmean">超能力</span></div>
+      <div class="vi"><span class="vword">famous</span><span class="vpos">adj</span><span class="vmean">有名な</span></div>
+      <div class="vi"><span class="vword">invisible</span><span class="vpos">adj</span><span class="vmean">見えない・透明な</span></div>
+      <div class="vi"><span class="vword">fluent</span><span class="vpos">adj</span><span class="vmean">流暢な</span></div>
+      <div class="vi"><span class="vword">talented</span><span class="vpos">adj</span><span class="vmean">才能がある</span></div>
+      <div class="vi"><span class="vword">change</span><span class="vpos">v</span><span class="vmean">変える</span></div>
+      <div class="vi"><span class="vword">imagine</span><span class="vpos">v</span><span class="vmean">想像する</span></div>
+      <div class="vi"><span class="vword">suppose</span><span class="vpos">v</span><span class="vmean">仮定する</span></div>
+      <div class="vi"><span class="vword">pretend</span><span class="vpos">v</span><span class="vmean">〜のふりをする</span></div>
+    </div>
+
+    <div class="tip">💬 <strong>Conversation:</strong> "If you could live anywhere in the world, where would it be? If you had a superpower, what would it be? I wish I could speak 5 languages!"</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+  function toggle(header) {
+    const body = header.nextElementSibling;
+    header.classList.toggle('open');
+    body.classList.toggle('open');
+  }
+  function showAll(btn) {
+    document.querySelectorAll('.chapter').forEach(c => c.style.display = 'block');
+    document.querySelectorAll('[data-part]').forEach(p => p.style.display = 'block');
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+  function filterLv(lv, btn) {
+    document.querySelectorAll('.chapter').forEach(c => {
+      c.style.display = c.dataset.lv === lv ? 'block' : 'none';
+    });
+    document.querySelectorAll('[data-part]').forEach(p => {
+      p.style.display = p.dataset.part === lv ? 'block' : 'none';
+    });
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+  function expandAll() {
+    document.querySelectorAll('.ch-head').forEach(h => h.classList.add('open'));
+    document.querySelectorAll('.ch-body').forEach(b => b.classList.add('open'));
+  }
+  function collapseAll() {
+    document.querySelectorAll('.ch-head').forEach(h => h.classList.remove('open'));
+    document.querySelectorAll('.ch-body').forEach(b => b.classList.remove('open'));
+  }
+</script>
+</body>
+</html>
